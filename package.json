@@ -4,7 +4,7 @@
   "description": "Realtime chat app with rooms",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env PORT=6422 HOST=http://localhost:6422 node server",
+    "start": "cross-env PORT=6422 HOST=https://express.ghgh.lol node server",
     "dev": "cross-env PORT=6422 HOST=http://localhost:6422 nodemon server"
   },
   "author": "Brad Traversy",
