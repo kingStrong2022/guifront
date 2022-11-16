@@ -4,11 +4,11 @@ module.exports = defineConfig({
   devServer:{
     proxy: {
       '': {
-        target: process.env.VUE_PROXY_SERVER,
+        target: process.env.VUE_APP_SERVER,
         ws:true
       },
       '/socket.io': {
-        target: process.env.VUE_PROXY_SERVER,
+        target: process.env.VUE_APP_SERVER,
         ws:true
       }
     }
