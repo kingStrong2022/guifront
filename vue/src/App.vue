@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-	<Chat>
+	<Chat  token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NjkwMTc2OTEsInVzZXJuYW1lIjoia3MxMjMxQGdtYWlsLmNvbSJ9.TFKE_0mNIpytYiKwUaiY14Sb0nK5F6V5ZPB_I8h1R4o">
 	<template v-slot>
 	<div id="dplayer"></div>
 	</template>

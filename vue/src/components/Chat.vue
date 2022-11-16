@@ -32,11 +32,11 @@
 				</ul>
 				<div class="send-containt">
 					<form @submit.prevent="submitForm">
-						<input type="text" ref="textinput" v-model.trim="text" class="message-input"/>
-						<p @click="showFace=true" class="face-btn">
+						<input type="text" ref="textinput" v-model.trim="text" class="message-input" :placeholder="joinRoom.disable ? '你已经被就禁言' : ''"  :disabled="joinRoom.disable"/>
+						<p @click="showFaceFn" class="face-btn">
 							<svg t="1668476601850" class="icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2728" width="20" height="20"><path d="M512.016 1024C229.232 1024 0.016 794.784 0.016 512 0.016 229.216 229.232 0 512.016 0 794.784 0 1024 229.216 1024 512 1024 794.784 794.784 1024 512.016 1024ZM512.016 64C264.976 64 64.016 264.96 64.016 512 64.016 759.024 264.976 960 512.016 960 759.04 960 960 759.024 960 512 960 264.96 759.04 64 512.016 64ZM510.336 833.456C509.056 833.456 507.744 833.488 506.448 833.488 310.992 833.488 229.024 657.12 225.616 649.552 218.336 633.424 225.488 614.496 241.584 607.216 257.712 599.968 276.576 607.088 283.888 623.088 286.64 629.12 352.928 769.488 506.576 769.488 507.584 769.488 508.576 769.456 509.584 769.456 672.896 767.552 738.368 624.768 739.024 623.344 746.176 607.216 765.024 599.872 781.264 607.152 797.392 614.336 804.672 633.248 797.456 649.408 794.176 656.8 714.208 831.056 510.336 833.456ZM671.504 479.84C636.224 479.84 607.664 451.232 607.664 415.984 607.664 380.768 636.224 352.176 671.504 352.176 706.768 352.176 735.344 380.768 735.344 415.984 735.344 451.232 706.768 479.84 671.504 479.84ZM351.504 479.84C316.224 479.84 287.664 451.232 287.664 415.984 287.664 380.768 316.224 352.176 351.504 352.176 386.768 352.176 415.344 380.768 415.344 415.984 415.344 451.232 386.768 479.84 351.504 479.84Z" p-id="2729"></path></svg>
 						</p>
-						<div class="expression" v-show="showFace">
+						<div class="expression" v-show="showFace && !joinRoom.disable">
 							<ul class="expression-list d-flex" >
 								<li v-for="item in expressions" :key="item.title" @click.stop="pickerExpression(item)">
 									<img :src="EMOJI_BASE_URL+item.url" alt="">
@@ -58,14 +58,8 @@
 import { EMOJI_BASE_URL } from './config/config.js';
 import { expressions,avatarList,randomAvatar } from './config/emoji.js';
 import { Manager } from 'socket.io-client';
-import { v4 as uuidv4 } from 'uuid';
-let inituser=localStorage.getItem('user');
-inituser=inituser ?JSON.parse(inituser):{
-	room:'Live chat',
-	username:uuidv4(),
-	avatarUrl:randomAvatar(),
-};
-localStorage.setItem('user',JSON.stringify(inituser))	
+import axios from 'axios'
+
 export default {
   name: 'ChatComponents',
   data() {
@@ -78,21 +72,29 @@ export default {
 		EMOJI_BASE_URL,
 		expressions,
 		showFace:false,
-		avatarList
+		avatarList,
+		joinRoom:{
+			room:'Live chat',
+			username:'',//accountId
+			webName:'',//username
+			disable:false
+		}
 	}
   },
   props: {
-    joinRoom: {
-		type: Object,
-		default: () => {
-			return {
-				...inituser
-			}
-		}
+	token: {
+		type: String,
+		default: ''
 	}
   },
   methods: {
 	randomAvatar,
+	showFaceFn(){
+		if(this.joinRoom.disable){
+			return
+		}
+		this.showFace = !this.showFace
+	},
 	isMe(item){
 		return this.joinRoom.username == item.username
 	},
@@ -106,6 +108,22 @@ export default {
 			this.socket.emit('chatMessage', this.text);
 			this.text = '';
 		}
+	},
+	async vaidToken(){
+		let data={}
+		
+		await this.$http.get('https://api.janestreet.cc/jeecg-boot/fund/user').then((res)=>{
+			data=res.data
+		}).catch(()=>{
+			data={}
+		})
+		return data
+	},
+	initHttp(){
+		const  http=axios.create({
+				headers: {'X-Access-Token': this.token}
+			})
+			this.$http=http;
 	},
 	outputRoomName(){
 
@@ -126,7 +144,6 @@ export default {
 				return item
 			}
 		})
-		console.log(message)
 		localStorage.setItem(this.joinRoom.room,JSON.stringify(arr))
 	},
 	outputUsers(users){
@@ -136,31 +153,46 @@ export default {
         const manager = new Manager(this.socketURL);
         const socket = manager.socket("/");
         this.socket=socket;
-	this.socket.on("connect",()=>{
-         this.isConnect=true;
-		//加入房间
-		this.socket.emit('joinRoom',this.joinRoom);
-		//监听进入房间人员
-		this.socket.on('roomUsers', ({ room, users }) => {
-			this.outputRoomName(room);
-			this.outputUsers(users);
-		});
-		// 监听消息
-		this.socket.on('message', (message) => {
-			this.outputMessage(message);
-
-			// Scroll down
-			this.$nextTick(() => {
-				let $dome=this.$refs.livelist;
-				if($dome){
-					$dome.scrollTop = $dome.scrollHeight;
+		this.socket.on("connect",()=>{
+			this.isConnect=true;
+			//加入房间
+			this.socket.emit('joinRoom',this.joinRoom);
+			//监听进入房间人员
+			this.socket.on('roomUsers', ({ room, users }) => {
+				this.outputRoomName(room);
+				this.outputUsers(users);
+			});
+			// 监听消息
+			this.socket.on('message', (message) => {
+				this.outputMessage(message);
+				// Scroll down
+				this.$nextTick(() => {
+					let $dome=this.$refs.livelist;
+					if($dome){
+						$dome.scrollTop = $dome.scrollHeight;
+					}
+				});
+			});
+			//禁用
+			this.socket.on('handleDisable', (users) => {
+				if(users.username === this.joinRoom.username){
+					this.joinRoom.disable=users.disable
 				}
 			});
-		});
-     })
+		})
 	}
   },
-  mounted(){
+  async mounted(){
+	this.initHttp();
+	let data = await this.vaidToken();
+	
+	if(data.code !== 200) return
+	let {username,disable,accountId}=data.result
+	this.joinRoom.username=accountId;
+	this.joinRoom.webName=username;
+	if(disable !== undefined){
+		this.joinRoom.disable=disable
+	}
 	let msg=localStorage.getItem(this.joinRoom.room)
 	this.messages=msg ?JSON.parse(msg):[];	
 	this.initSocket();

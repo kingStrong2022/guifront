@@ -1,6 +1,7 @@
 const path = require("path");
 const http = require("http");
 const express = require("express");
+const bodyParser = require('body-parser');
 const io = require("socket.io")({
 	cors: {
 	  origin: '*',
@@ -20,11 +21,46 @@ const {
   getCurrentUser,
   userLeave,
   getRoomUsers,
+  disableChat
 } = require("./utils/users");
 
 const app = express();
-
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.post('/api/say', (req, res) => {
+	let room=req.body.room;
+	let text=req.body.text;
+	let msg=formatMessage({webname:'root'},text);
+	sendMsg(room,{
+		id: '4Se9GqLSpvBKRg_hAAAI---yyy',
+		room,
+		username: '1578669864322215938-yyy',
+		avatarUrl: 'http://localhost:6422/static/img/avatar/20180414165909.jpg',
+		text
+	})
+  res.send('ok')
+})
+app.post('/api/disable', (req, res) => {
+	let username=req.body.accountId;
+	let disable=req.body.disable;
+	let room=req.body.room;
+	const user = disableChat(username,disable);
+	// sendMsg(room,{
+	// 	id: '4Se9GqLSpvBKRg_hAAAI---yyy',
+	// 	room,
+	// 	username,
+	// 	avatarUrl: 'http://localhost:6422/static/img/avatar/20180414165909.jpg',
+	// 	text:JSON.stringify(user)
+	// })
+	io.to(room).emit("handleDisable", user);
+  res.send(user)
+})
 const server = http.createServer(app);
+function sendMsg(room,msg){
+	io.to(room).emit("message", msg);
+}
 //const io = socketio(server);
 io.attach(server);
 app.use(cors())
@@ -45,8 +81,8 @@ const botName = {
 
 // Run when client connects
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
+  socket.on("joinRoom", (userJson) => {
+    const user = userJoin(socket.id, userJson);
 
     socket.join(user.room);
 

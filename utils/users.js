@@ -24,8 +24,12 @@ function getFaceHtml(){
 	  return list[index];
 }
 // Join user to chat
-function userJoin(id, username, room) {
-  const user = { id, username, room ,avatarUrl:getFaceHtml()}
+// room:'Live chat',
+// username:'',//accountId
+// webName:'',//username
+// disbale:false
+function userJoin(id, username) {
+  const user = { id, ...username ,avatarUrl:getFaceHtml()}
 
   users.push(user);
 
@@ -45,7 +49,15 @@ function userLeave(id) {
     return users.splice(index, 1)[0];
   }
 }
-
+// User disable chat
+function disableChat(id,disable) {
+	const index = users.findIndex(user => user.username === id);
+  
+	if (index !== -1) {
+	   users[index].disable=disable;
+	}
+	return users[index] || {};
+  }
 // Get room users
 function getRoomUsers(room) {
   return users.filter(user => user.room === room);
@@ -55,5 +67,6 @@ module.exports = {
   userJoin,
   getCurrentUser,
   userLeave,
-  getRoomUsers
+  getRoomUsers,
+  disableChat
 };
