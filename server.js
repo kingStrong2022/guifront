@@ -42,7 +42,7 @@ const botName = {
 // })();
 
 // Run when client connects
-io.on("connection", (socket) => {
+socketio.on("connection", (socket) => {
   console.log(io.of("/").adapter);
   socket.on("joinRoom", ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
