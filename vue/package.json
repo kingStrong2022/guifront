@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
+    "dplayer": "^1.27.0",
     "socket.io-client": "^4.5.3",
     "stylus": "^0.59.0",
     "stylus-loader": "^7.1.0",

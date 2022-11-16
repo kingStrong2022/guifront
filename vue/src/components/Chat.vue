@@ -2,7 +2,7 @@
   <div class="chat-components">
 	<div class="live-container container-pc d-flex">
 		<div class="live-video">
-			<img src="https://bbs.porn7f.com/live_03.png" alt="">
+			<slot></slot>
 		</div>
 		<div class="live-chat">
 			<div class="chat-head align-center">
