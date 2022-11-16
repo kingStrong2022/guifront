@@ -1,7 +1,7 @@
 const path = require("path");
 const http = require("http");
 const express = require("express");
-const socketio = require("socket.io")({
+const io = require("socket.io")({
 	cors: {
 	  origin: '*',
 	  allowedHeaders: ["my-custom-header"],
@@ -26,7 +26,7 @@ const app = express();
 
 const server = http.createServer(app);
 //const io = socketio(server);
-socketio.attach(server);
+io.attach(server);
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -43,7 +43,7 @@ const botName = {
 // })();
 
 // Run when client connects
-socketio.on("connection", (socket) => {
+io.on("connection", (socket) => {
   socket.on("joinRoom", ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
 
