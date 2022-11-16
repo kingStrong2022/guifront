@@ -21,8 +21,7 @@ export default {
 		container: document.getElementById('dplayer'),
 		screenshot: true,
 		video: {
-		url: 'http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-
+		url: 'http://localhost:6422/dome.mp4',
 		}
 	});
   }
@@ -36,5 +35,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.dplayer{
+	height: 100%;
 }
 </style>

@@ -12,7 +12,7 @@ const io = require("socket.io")({
 const formatMessage = require("./utils/messages");
 const createAdapter = require("@socket.io/redis-adapter").createAdapter;
 const redis = require("redis");
-
+var cors = require('cors')
 require("dotenv").config();
 const { createClient } = redis;
 const {
@@ -27,6 +27,7 @@ const app = express();
 const server = http.createServer(app);
 //const io = socketio(server);
 io.attach(server);
+app.use(cors())
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
