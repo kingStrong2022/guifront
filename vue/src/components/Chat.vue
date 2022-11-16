@@ -1,11 +1,11 @@
 <template>
   <div class="chat-components">
 	<div class="live-container container-pc d-flex">
-		<div class="live-video">
+		<div ref="livevideo" class="live-video">
 			<slot></slot>
 		</div>
 		<div class="live-chat">
-			<div class="chat-head align-center">
+			<div ref="chathead" class="chat-head align-center">
 				<svg t="1668394839252" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2684" width="32" height="32"><path d="M266.024819 553.999556c-42.324968 0-76.759221-34.435277-76.759221-76.763314 0-42.324968 34.434254-76.759221 76.759221-76.759221s76.759221 34.434254 76.759221 76.759221C342.78404 519.564279 308.35081 553.999556 266.024819 553.999556zM266.024819 437.656805c-21.824051 0-39.579437 17.755386-39.579437 39.579437 0 21.827121 17.755386 39.58353 39.579437 39.58353s39.579437-17.757432 39.579437-39.58353C305.604256 455.412191 287.84887 437.656805 266.024819 437.656805z" p-id="2685"></path><path d="M521.82067 553.999556c-42.324968 0-76.759221-34.435277-76.759221-76.763314 0-42.324968 34.434254-76.759221 76.759221-76.759221s76.759221 34.434254 76.759221 76.759221C598.579891 519.564279 564.146661 553.999556 521.82067 553.999556zM521.82067 437.656805c-21.824051 0-39.579437 17.755386-39.579437 39.579437 0 21.827121 17.755386 39.58353 39.579437 39.58353s39.58046-17.757432 39.58046-39.58353C561.40113 455.412191 543.645744 437.656805 521.82067 437.656805z" p-id="2686"></path><path d="M772.168438 553.999556c-42.327014 0-76.763314-34.435277-76.763314-76.763314 0-42.324968 34.435277-76.759221 76.763314-76.759221 42.324968 0 76.759221 34.434254 76.759221 76.759221C848.927659 519.564279 814.493405 553.999556 772.168438 553.999556zM772.168438 437.656805c-21.826098 0-39.584554 17.755386-39.584554 39.579437 0 21.827121 17.758456 39.58353 39.584554 39.58353 21.824051 0 39.58046-17.757432 39.58046-39.58353C811.748898 455.412191 793.992489 437.656805 772.168438 437.656805z" p-id="2687"></path><path d="M287.374056 905.644405c-3.447519 0-6.933923-0.958838-10.048867-2.963495-8.631588-5.559623-11.122315-17.062608-5.562692-25.694195 17.160845-26.643823 50.127677-44.535309 97.987708-53.179177 32.118512-5.801123 59.942207-5.307889 63.439868-5.214768l431.729815 0c35.307134 0 64.031339-28.725228 64.031339-64.032362L928.951227 227.848335c0-35.307134-28.724205-64.031339-64.031339-64.031339L173.274392 163.816996c-35.307134 0-64.031339 28.724205-64.031339 64.031339l0 526.71105c0 33.039487 24.747637 60.429301 57.565067 63.711044 2.136663 0.212848 4.314259 0.321318 6.466272 0.321318l51.903114 0c10.266831 0 18.590404 8.322549 18.590404 18.58938s-8.322549 18.58938-18.590404 18.58938l-51.903114 0c-3.37998 0-6.798846-0.169869-10.161431-0.50449-24.855084-2.485611-47.832402-14.06125-64.702628-32.595372-16.989953-18.665105-26.347065-42.85504-26.347065-68.112284L72.063269 227.848335c0-55.80805 45.403073-101.211123 101.211123-101.211123l691.645496 0c55.80805 0 101.2101 45.403073 101.2101 101.211123l0 526.71105c0 55.80805-45.402049 101.211123-101.2101 101.211123L432.639534 855.770508l-0.293689-0.00921c-0.24764-0.007163-26.750247-0.725524-56.611346 4.746094-25.412786 4.65502-58.657958 14.784728-72.715115 36.609803C299.466466 902.634862 293.482171 905.644405 287.374056 905.644405z" p-id="2688"></path></svg>
 				<span class="head-title">{{joinRoom.room}}</span>
 			</div>
@@ -56,7 +56,7 @@
 
 <script>
 import { EMOJI_BASE_URL } from './config/config.js';
-import { expressions,avatarList,randomAvatar } from './config/emoji.js';
+import { expressions,avatarList,randomAvatar,dom } from './config/emoji.js';
 import { Manager } from 'socket.io-client';
 import axios from 'axios'
 
@@ -124,6 +124,8 @@ export default {
 				headers: {'X-Access-Token': this.token}
 			})
 			this.$http=http;
+			dom.addClass(document.querySelector('html'),'live-room-html')
+			
 	},
 	outputRoomName(){
 
@@ -148,6 +150,13 @@ export default {
 	},
 	outputUsers(users){
 		this.users.push(users)
+	},
+	countHeight(){
+		let resAll=this.$refs
+		console.log(resAll.livevideo.clientHeight*1)
+		let height = resAll.livevideo.clientHeight*1 +resAll.chathead.clientHeight*1 
+		let  winHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+		resAll.livelist.style.height = winHeight - height + 'px'
 	},
 	initSocket() {
         const manager = new Manager(this.socketURL);
@@ -184,6 +193,7 @@ export default {
   },
   async mounted(){
 	this.initHttp();
+	this.countHeight();
 	let data = await this.vaidToken();
 	
 	if(data.code !== 200) return
@@ -198,31 +208,19 @@ export default {
 	this.initSocket();
    },
    beforeDestroy(){
+	dom.removeClass(document.querySelector('html'),'live-room-html')
       if(this.socket){
         this.socket.close()
       }
     }
 }
 </script>
-<style>
-.leve-room-name{
-	text-overflow:ellipsis;
-    white-space: nowrap;
-    max-width: 104px;
-    display: inline-block;
-	overflow: hidden;
-}
-</style>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
 .chat-components{
 	color: #333;
 	font-size: 16px
-	*{
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
 }
 .d-flex{
 	display: flex;
@@ -348,12 +346,23 @@ ul,li,ol{
 		max-width: 100%;
 	}
 }
+.dplayer{
+	height: 100%;
+}
 @media (max-width: 560px){
 	.live-chat,.container-pc{
 		width: 100% !important;
 	}
 	.container-pc{
 		flex-direction: column;
+	}
+	.send-containt{
+		position: fixed;
+	}
+	.live-video{
+		flex-basis:234px;
+		flex-grow: 0 !important;
+		flex-shrink: 0 !important;
 	}
 }
 .face-btn{
@@ -379,4 +388,21 @@ ul,li,ol{
 		display: block;
 	}
 }
+</style>
+<style  lang="stylus">
+.leve-room-name{
+	text-overflow:ellipsis;
+    white-space: nowrap;
+    max-width: 104px;
+    display: inline-block;
+	overflow: hidden;
+}
+.live-room-html{
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+}
+
 </style>

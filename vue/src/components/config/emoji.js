@@ -169,3 +169,17 @@ export const randomAvatar=()=>{
 	const index=parseInt(Math.random()*len);
 	return avatarList[index];
 }
+export const dom = {
+	hasClass(obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+    },
+    addClass(obj, cls) {
+        if (!this.hasClass(obj, cls)) obj.className += ' ' + cls
+    },
+    removeClass(obj, cls) {
+        if (this.hasClass(obj, cls)) {
+            const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+            obj.className = obj.className.replace(reg, ' ').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
+        }
+    },
+}
