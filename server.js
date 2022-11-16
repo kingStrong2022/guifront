@@ -1,11 +1,17 @@
 const path = require("path");
 const http = require("http");
 const express = require("express");
-const socketio = require("socket.io");
+const socketio = require("socket.io")({
+	cors: {
+	  origin: 'https://live.ghgh.lol',
+	  credentials: true,
+	},
+	serveClient:false
+  });
 const formatMessage = require("./utils/messages");
 const createAdapter = require("@socket.io/redis-adapter").createAdapter;
 const redis = require("redis");
-var cors = require('cors')
+
 require("dotenv").config();
 const { createClient } = redis;
 const {
@@ -16,18 +22,7 @@ const {
 } = require("./utils/users");
 
 const app = express();
-var whitelist = ['ghgh.lol']
-var corsOptions = {
-  origin: function (origin, callback) {
-      console.log(origin)
-    if (origin && whitelist.findIndex( v => origin.indexOf(v) > -1) >-1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-app.use(cors(corsOptions))
+
 const server = http.createServer(app);
 const io = socketio(server);
 
