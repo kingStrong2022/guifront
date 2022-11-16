@@ -70,7 +70,7 @@ export default {
   name: 'ChatComponents',
   data() {
 	return {
-		socketURL:window._HOST||'',
+		socketURL:process.env.VUE_APP_SERVER,
 		isConnect:false,
 		users:[],
 		messages:[],
