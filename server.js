@@ -3,7 +3,8 @@ const http = require("http");
 const express = require("express");
 const socketio = require("socket.io")({
 	cors: {
-	  origin: 'https://live.ghgh.lol',
+	  origin: '*',
+	  allowedHeaders: ["my-custom-header"],
 	  credentials: true,
 	},
 	serveClient:false
