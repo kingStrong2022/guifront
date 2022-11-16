@@ -29,9 +29,16 @@ function getFaceHtml(){
 // webName:'',//username
 // disbale:false
 function userJoin(id, username) {
-  const user = { id, ...username ,avatarUrl:getFaceHtml()}
-
-  users.push(user);
+  let user = { id, ...username ,avatarUrl:getFaceHtml()}
+  const index = users.findIndex(v => v.username === user.username);
+  
+  if (index !== -1) {
+	 users[index].id=id;
+		user=users[index];
+  }else{
+	users.push(user);
+  }
+  
 
   return user;
 }
