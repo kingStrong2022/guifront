@@ -100,7 +100,7 @@
 					</div>
 				</li>
 			</ul>
-			<a class="telecom-offer__btn center-center" href="javascript:void(0)">兑换确认</a>
+			<a class="telecom-offer__btn center-center" @click="dialogFormVisible=true" href="javascript:void(0)">兑换确认</a>
 			<p class="telecom-offer__des">您需要 <span>登录</span> 才能提出兑换请求</p>
 		</div>
 		<div class="footer">
@@ -135,6 +135,26 @@
 				</div>
 			</div>
 		</div>
+		<el-dialog title="填写信息" width="99%" :visible.sync="dialogFormVisible">
+			<el-form :model="form" :rules="rules" ref="ruleForm" >
+				<el-form-item prop="phone" label="手机号：" :label-width="formLabelWidth">
+					<el-input v-model="form.phone" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item  prop="username" label="姓名：" :label-width="formLabelWidth">
+					<el-input v-model="form.username" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item prop="rankname" label="银行名称：" :label-width="formLabelWidth">
+					<el-input v-model="form.rankname" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item  prop="rankNum" label="银行卡号：" :label-width="formLabelWidth">
+					<el-input v-model="form.rankNum" autocomplete="off"></el-input>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="resetForm('ruleForm')">取 消</el-button>
+				<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+			</div>
+		</el-dialog>
   </div>
 </template>
 
@@ -144,10 +164,54 @@ export default {
 	name: 'listHome',
   data() {
     return {
-      
+      dialogFormVisible:false,
+			formLabelWidth:'100px',
+			form: {
+				phone: '',
+				username: '',
+				rankname:'',
+				rankNum:''
+        },
+				rules: {
+					phone:[{ required: true, message: '填写手机号码', trigger: 'blur' },],
+					username:[{ required: true, message: '填写名字', trigger: 'blur' },],
+					rankname:[{ required: true, message: '填写银行名称', trigger: 'blur' },],
+					rankNum:[{ required: true, message: '填写银行卡号', trigger: 'blur' },],
+				}
     };
   },
   methods: {
+		submitForm(formName) {
+        this.$refs[formName].validate( async (valid) => {
+          if (!valid) return
+					let result= await this.ajaxData()
+					this.resetForm(formName)
+					this.dialogFormVisible=false
+					if(result.code === 20000){
+						this.$MessageBox.alert('你的申请已经提交，请下载最新客户端等待审核', '提示', {
+							confirmButtonText: '确定',
+							callback: action => {
+								console.log(action)
+							}
+						});
+					}
+        });
+      },
+		async	ajaxData(){
+			const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+			let data=	this.$http.post(`/article/msg`,this.form)
+			loading.close()
+			return data
+		},
+		resetForm(formName) {
+			this.$refs[formName].resetFields();
+			this.dialogFormVisible = false
+		},
     loadDashBoard() {
 			let scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
 				let header = document.querySelector('.js-header')
