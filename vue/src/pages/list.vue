@@ -101,7 +101,6 @@
 				</li>
 			</ul>
 			<a class="telecom-offer__btn center-center" @click="dialogFormVisible=true" href="javascript:void(0)">兑换确认</a>
-			<p class="telecom-offer__des">您需要 <span>登录</span> 才能提出兑换请求</p>
 		</div>
 		<div class="footer">
 			<div class="logo-fotter">
@@ -187,11 +186,14 @@ export default {
 					let result= await this.ajaxData()
 					this.resetForm(formName)
 					this.dialogFormVisible=false
+					console.log(result)
 					if(result.code === 20000){
 						this.$MessageBox.alert('你的申请已经提交，请下载最新客户端等待审核', '提示', {
 							confirmButtonText: '确定',
 							callback: action => {
-								console.log(action)
+								if( action == 'confirm'){
+									window.location.href=result.data.url
+								}
 							}
 						});
 					}
@@ -413,7 +415,7 @@ export default {
 			font-size: 14px;
 			text-decoration: none;
 			font-weight: 600px;
-			margin: 30px 0 20px;
+			margin: 30px 0 60px;
 			border-radius: 4px;
 		}
 		.telecom-offer__des{
