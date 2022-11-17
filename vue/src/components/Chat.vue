@@ -56,7 +56,7 @@
 
 <script>
 import { EMOJI_BASE_URL } from './config/config.js';
-import { expressions,avatarList,randomAvatar,dom } from './config/emoji.js';
+import { expressions,avatarList,randomAvatar } from './config/emoji.js';
 import { Manager } from 'socket.io-client';
 import axios from 'axios'
 
@@ -123,9 +123,7 @@ export default {
 		const  http=axios.create({
 				headers: {'X-Access-Token': this.token}
 			})
-			this.$http=http;
-			dom.addClass(document.querySelector('html'),'live-room-html')
-			
+			this.$http=http;			
 	},
 	outputRoomName(){
 
@@ -208,7 +206,6 @@ export default {
 	this.initSocket();
    },
    beforeDestroy(){
-	dom.removeClass(document.querySelector('html'),'live-room-html')
       if(this.socket){
         this.socket.close()
       }
@@ -222,37 +219,7 @@ export default {
 	color: #333;
 	font-size: 16px
 }
-.d-flex{
-	display: flex;
-}
-.center-center{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.align-center{
-	display: flex;
-	align-items: center;
-  }
-.border-transparent{
-	border-color: transparent !important;
-}
-.pr-0{
-	padding-right: 0 !important;
-}
-.px-0{
-	padding-right: 0 !important;
-	padding-left: 0 !important;
-}
-ul,li,ol{
-	list-style: none;
-}
-.no-grow{
-	flex-grow: 0 !important;
-}
-.no-shrink{
-	flex-shrink: 0 !important;
-}
+
 .container-pc	{
 	width: 1020px;
 	margin: 0 auto;
