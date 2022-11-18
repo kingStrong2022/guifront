@@ -143,7 +143,19 @@
 					<el-input v-model="form.username" autocomplete="off"></el-input>
 				</el-form-item>
 				<el-form-item prop="rankname" label="银行名称：" :label-width="formLabelWidth">
-					<el-input v-model="form.rankname" autocomplete="off"></el-input>
+					<el-select filterable v-model="form.rankname" placeholder="请选择">
+						<el-option
+							v-for="item in bank"
+							:key="item.value"
+							:label="item.label"
+							:value="item.value">
+							<div class="align-center pb-4">
+								<span  style=" line-height: 1; "><img height="30" :src="item.img" alt=""></span>
+								<span  style=" line-height: 1; padding-left: 4px;">{{ item.label }}</span>
+							</div>
+						
+						</el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item  prop="rankNum" label="银行卡号：" :label-width="formLabelWidth">
 					<el-input v-model="form.rankNum" autocomplete="off"></el-input>
@@ -159,10 +171,12 @@
 
 <script>
 import { dom } from '../components/config/emoji.js';
+import bank from '../bank';
 export default {
 	name: 'listHome',
   data() {
     return {
+			bank,
       dialogFormVisible:false,
 			formLabelWidth:'100px',
 			form: {

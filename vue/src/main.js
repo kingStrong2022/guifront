@@ -11,8 +11,10 @@ import http from "./http";
 import {
 		Button,Form,Dialog,
 		FormItem,Input,MessageBox,
-		Loading,Table,tableColumn
+		Loading,Table,tableColumn,Select,option
 } from 'element-ui';
+Vue.use(Select)
+Vue.use(option)
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(Dialog)

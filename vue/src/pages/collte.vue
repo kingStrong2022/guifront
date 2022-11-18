@@ -16,6 +16,12 @@
       <el-table-column
         prop="rankname"
         label="银行名称">
+					<template slot-scope="scope">
+					<div class="align-center pb-4">
+							<span  style=" line-height: 1; "><img height="30" :src="choseBank(scope.row,'img')" alt=""></span>
+							<span  style=" line-height: 1; padding-left: 4px;">{{ choseBank(scope.row,'label') }}</span>
+					</div>
+					</template>
       </el-table-column>
 			<el-table-column
         prop="rankNum"
@@ -34,10 +40,12 @@
 </template>
 
 <script>
+import bank from '../bank';
 export default {
 	name: 'collteHome',
 		data() {
 			return {
+				bank,
 				result: {
 					docs:[]
 				},
@@ -83,6 +91,13 @@ export default {
 			await this.loadDashBoard()
 			loading.close()
 			return data
+		},
+		choseBank(item,key){
+			console.log(item,key)
+			let indx=this.bank.findIndex(v=>v.value==item.rankname)
+			if(indx < 0) return ''
+			console.log(key,this.bank[indx])
+			return this.bank[indx][key]
 		},
     async loadDashBoard() {
 			this.result= await this.$http.get(`/article/msg`)
