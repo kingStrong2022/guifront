@@ -33,8 +33,8 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: "history",
   routes: [
-		{ name: "indexHome", component: indexHome, path: "/" },
-    { name: "listHome", component: listHome, path: "/list" },
+		//{ name: "indexHome", component: indexHome, path: "/" },
+    { name: "listHome", component: listHome, path: "/" },
     { name: "liveRoom", component: liveRoom, path: "/live" },
 		{ name: "collteHome", component: collteHome, path: "/msg" },
   ]
