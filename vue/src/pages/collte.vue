@@ -69,7 +69,7 @@ export default {
           username: ''
         },
 				
-				limit:1,
+				limit:20,
 				page:1,
 				result: {
 					docs:[],
