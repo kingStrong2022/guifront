@@ -1,5 +1,24 @@
 <template>
   <div>
+		<el-form style="margin-top:36px" :model="form" :rules="rules" ref="ruleForm" >
+				<el-form-item prop="url" label="配置url：" :label-width="formLabelWidth">
+					<el-input v-model="form.url" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item :label-width="formLabelWidth">
+					<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+				</el-form-item>
+			</el-form>
+			<el-form :inline="true" :model="formInline" class="demo-form-inline">
+			<el-form-item label="姓名">
+				<el-input v-model="formInline.username" placeholder="姓名"></el-input>
+			</el-form-item>
+			<el-form-item label="手机">
+				<el-input v-model="formInline.phone" placeholder="手机"></el-input>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" @click="onSubmit">查询</el-button>
+			</el-form-item>
+		</el-form>
     <el-table
       :data="docs"
       style="width: 100%">
@@ -28,14 +47,13 @@
         label="银行卡号">
       </el-table-column>
     </el-table>
-		<el-form style="margin-top:36px" :model="form" :rules="rules" ref="ruleForm" >
-				<el-form-item prop="url" label="配置url：" :label-width="formLabelWidth">
-					<el-input v-model="form.url" autocomplete="off"></el-input>
-				</el-form-item>
-				<el-form-item :label-width="formLabelWidth">
-					<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
-				</el-form-item>
-			</el-form>
+		<el-pagination
+		background
+		layout="prev, pager, next"
+		@current-change="handleCurrentChange"
+		:page-size="limit"
+		:total="(result.totalDocs-1)">
+	</el-pagination>
 	</div>
 </template>
 
@@ -46,8 +64,16 @@ export default {
 		data() {
 			return {
 				bank,
+				formInline: {
+          phone: '',
+          username: ''
+        },
+				
+				limit:1,
+				page:1,
 				result: {
-					docs:[]
+					docs:[],
+					totalDocs:0,
 				},
 				form:{
 					url:''
@@ -66,6 +92,31 @@ export default {
 		},
 	}	,
   methods: {
+		handleCurrentChange(p){
+			this.page = p;
+			let data = {
+				params:{page:this.page,limit:this.limit,}
+			}
+			for(let key in this.formInline){
+				if(this.formInline[key]){
+					data.params[`${key}`]=this.formInline[`${key}`]
+				}
+			}
+			this.loadDashBoard(data);
+		},
+		onSubmit() {
+			this.page = 1;
+			let data={
+				params:{page:this.page,limit:this.limit,}
+			}
+			for(let key in this.formInline){
+				if(this.formInline[key]){
+					data.params[`${key}`]=this.formInline[`${key}`]
+				}
+			}
+			this.loadDashBoard(data)
+
+		},
 		submitForm(formName) {
         this.$refs[formName].validate( async (valid) => {
           if (!valid) return
@@ -99,8 +150,18 @@ export default {
 			console.log(key,this.bank[indx])
 			return this.bank[indx][key]
 		},
-    async loadDashBoard() {
-			this.result= await this.$http.get(`/article/msg`)
+    async loadDashBoard(cont) {
+			console.log(cont)
+			if(!cont){
+				cont={
+					params:{
+						limit:this.limit,
+						page:this.page
+					}
+				}
+			}
+			console.log(cont)
+			this.result= await this.$http.get(`/article/msg`,cont)
 			let data= this.result.docs.filter(v => v.url)
 			if(data.length>0){
 				this.form.url= data[0].url
