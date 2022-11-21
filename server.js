@@ -81,6 +81,7 @@ const botName = {
 
 // Run when client connects
 io.on("connection", (socket) => {
+	
   socket.on("joinRoom", (userJson) => {
     const user = userJoin(socket.id, userJson);
 

@@ -8,12 +8,11 @@
 				</li>
 				<li class="icon-box no-grow no-shrink"><i class=" iconfont icon-livesearch"></i></li>
 				</ul>
-				<p class="bot-girl"><img src="../assets/bot_girl.png" alt=""></p>
+				<p class="bot-girl" @click="goServe"><img src="../assets/bot_girl.png" alt=""></p>
 		</div>
 </template>
 
 <script>
-import { Manager } from 'socket.io-client';
 import { dom } from '../components/config/emoji.js';
 export default {
   name: 'HeadComponents',
@@ -23,6 +22,9 @@ export default {
 		}
   },
 	methods: {
+		goServe(){
+			this.$router.push('/serve')
+		},
 		loadDashBoard() {
 			let scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
 				let header = document.querySelector('.js-header')
@@ -33,14 +35,7 @@ export default {
 					dom.removeClass(header, 'header--fixed')
 				}
     },
-		initSocket() {
-			const manager = new Manager(this.socketURL);
-			const socket = manager.socket("/");
-			this.socket=socket;
-			this.socket.on("connect",()=>{
-				console.log('connect')
-			})
-		}
+		
 	},
 	mounted() {
 		document.addEventListener('scroll',this.loadDashBoard)
@@ -99,7 +94,6 @@ export default {
 		left: 0;
 		right: 0;
 		z-index: 999;
-		
 		box-shadow: 0 5px 10px rgb(129 126 126 / 31%);
 	}
 </style>
