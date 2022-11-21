@@ -192,17 +192,25 @@ export default {
   async mounted(){
 	this.initHttp();
 	this.countHeight();
-	let data = await this.vaidToken();
+	// let data = await this.vaidToken();
 	
-	if(data.code !== 200) return
-	let {username,disable,accountId}=data.result
-	this.joinRoom.username=accountId;
-	this.joinRoom.webName=username;
-	if(disable !== undefined){
-		this.joinRoom.disable=disable
+	// if(data.code !== 200) return
+	// let {username,disable,accountId}=data.result
+	// this.joinRoom.username=accountId;
+	// this.joinRoom.webName=username;
+	// if(disable !== undefined){
+	// 	this.joinRoom.disable=disable
+	// }
+	// let msg=localStorage.getItem(this.joinRoom.room)
+	// this.messages=msg ?JSON.parse(msg):[];	
+	this.joinRoom={
+  room: 'serve chat',
+  username: 'dbe8c746-e72c-4ea6-8ccd-fbe0169d890b',
+  webName: '',
+  disable: false,
+  admin: 1,
+  avatarUrl: 'http://localhost:6422/static/img/avatar/20180414165947.jpg',
 	}
-	let msg=localStorage.getItem(this.joinRoom.room)
-	this.messages=msg ?JSON.parse(msg):[];	
 	this.initSocket();
    },
    beforeDestroy(){
