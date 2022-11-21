@@ -21,7 +21,8 @@ const {
   getCurrentUser,
   userLeave,
   getRoomUsers,
-  disableChat
+  disableChat,
+	getToUser
 } = require("./utils/users");
 
 const app = express();
@@ -81,7 +82,7 @@ const botName = {
 
 // Run when client connects
 io.on("connection", (socket) => {
-	
+
   socket.on("joinRoom", (userJson) => {
     const user = userJoin(socket.id, userJson);
 
@@ -104,11 +105,18 @@ io.on("connection", (socket) => {
       users: getRoomUsers(user.room),
     });
   });
-
+// Listen for chatMessage {toUser={id,username},text}=obj
+	socket.on("chatAdminMsg", ({toSocket,text}) => {
+		const user = getCurrentUser(socket.id);
+		const toUser = getToUser(toSocket.username);
+		console.log('toUser',toUser,text)
+		if(!toUser) return;
+		io.to(toUser.id).emit("adminMsg", formatMessage(user, text));
+	});
   // Listen for chatMessage
   socket.on("chatMessage", (msg) => {
+		console.log(msg)
     const user = getCurrentUser(socket.id);
-	console.log(user)
     io.to(user.room).emit("message", formatMessage(user, msg));
   });
 

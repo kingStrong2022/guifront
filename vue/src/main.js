@@ -12,10 +12,11 @@ import http from "./http";
 import store from './store'
 import {
 		Button,Form,Dialog,
-		FormItem,Input,MessageBox,
+		FormItem,Input,MessageBox,Badge,
 		Loading,Table,tableColumn,Select,Option,Pagination
 } from 'element-ui';
 import variables from './assets/styles/element-variables.scss'
+Vue.use(Badge)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Button)
@@ -29,7 +30,7 @@ Vue.use(Table)
 Vue.use(tableColumn)
 Vue.prototype.$MessageBox=MessageBox 
 
-
+console.log(MessageBox)
 
 Vue.prototype.$http=http 
 Vue.config.productionTip = false

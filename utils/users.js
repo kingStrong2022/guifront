@@ -29,7 +29,7 @@ function getFaceHtml(){
 // webName:'',//username
 // disbale:false
 function userJoin(id, username) {
-  let user = { id, ...username ,avatarUrl:getFaceHtml()}
+  let user = { id, ...username ,avatarUrl:getFaceHtml(),message:[]}
   const index = users.findIndex(v => v.username === user.username);
   
   if (index !== -1) {
@@ -47,7 +47,9 @@ function userJoin(id, username) {
 function getCurrentUser(id) {
   return users.find(user => user.id === id);
 }
-
+function getToUser(username) {
+  return users.find(user => user.username === username);
+}
 // User leaves chat
 function userLeave(id) {
   const index = users.findIndex(user => user.id === id);
@@ -75,5 +77,6 @@ module.exports = {
   getCurrentUser,
   userLeave,
   getRoomUsers,
-  disableChat
+  disableChat,
+	getToUser
 };
