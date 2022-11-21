@@ -53,6 +53,7 @@ export default {
   },
   data() {
     return {
+			socketURL:process.env.VUE_APP_SERVER,
       isConnect:false,
 			text:'',
 			users: [],
