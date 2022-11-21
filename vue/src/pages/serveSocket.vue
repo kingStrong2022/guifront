@@ -1,41 +1,43 @@
 <template>
   <div class="serve-socket-page" :class="{'admin-menu':joinRoom.admin}">
     <Header/>
-		<ul class="online-user d-column" v-if="joinRoom.admin">
-			<li class="center-center"
-			:class="{'active':item.username === toUser.username}"
-			v-for="(item, index) in otherUser"
-			:key="index"
-			@click="choseToUser(item)"
-			>
-			<el-badge 
-			:hidden="item.message.filter(v => !v.read).length == 0"
-			:value="item.message.filter(v => !v.read).length" 
-			class="item">
-				<i class="iconfont icon-liveuser"></i>
-			</el-badge>
-				
-			</li>
-		</ul>	
-		<div class="msg-cont">
-			<ul class="d-flex msg-list " 
-			v-for="(item, index) in curMsg"
-			:key="index"
-			:class="{'justify-end': isMe(item),'msg-admin':!isMe(item)}"
-			>
-				<li class="msg-img no-grow no-shrink" v-if="item.admin"><img src="../assets/bot_girl.png" alt=""></li>
-				<li class="msg" v-html="item.text"></li>
-			</ul>
-		</div>
-		<div >
-			<ul class="chat-message align-center">
-				<li class="text-input">
-					<el-input placeholder="输入信息" @keyup.enter.native="submitForm" v-model="text" autocomplete="off"></el-input>
+		<div v-if="isConnect">
+			<ul class="online-user d-column" v-if="joinRoom.admin">
+				<li class="center-center"
+				:class="{'active':item.username === toUser.username}"
+				v-for="(item, index) in otherUser"
+				:key="index"
+				@click="choseToUser(item)"
+				>
+				<el-badge 
+				:hidden="item.message.filter(v => !v.read).length == 0"
+				:value="item.message.filter(v => !v.read).length" 
+				class="item">
+					<i class="iconfont icon-liveuser"></i>
+				</el-badge>
+					
 				</li>
-				<li>
-					<i @click="submitForm" class="iconfont icon-livezhifeiji"></i>
-				</li>
-			</ul>		
+			</ul>	
+			<div class="msg-cont">
+				<ul class="d-flex msg-list " 
+				v-for="(item, index) in curMsg"
+				:key="index"
+				:class="{'justify-end': isMe(item),'msg-admin':!isMe(item)}"
+				>
+					<li class="msg-img no-grow no-shrink" v-if="item.admin"><img src="../assets/bot_girl.png" alt=""></li>
+					<li class="msg" v-html="item.text"></li>
+				</ul>
+			</div>
+			<div >
+				<ul class="chat-message align-center">
+					<li class="text-input">
+						<el-input placeholder="输入信息" @keyup.enter.native="submitForm" v-model="text" autocomplete="off"></el-input>
+					</li>
+					<li>
+						<i @click="submitForm" class="iconfont icon-livezhifeiji"></i>
+					</li>
+				</ul>		
+			</div>
 		</div>
 	</div>
 </template>
@@ -161,8 +163,15 @@ export default {
         const manager = new Manager(this.socketURL);
         const socket = manager.socket("/");
         this.socket=socket;
+				const loading = this.$loading({
+          lock: true,
+          text: '链接中....',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
 			this.socket.on("connect",()=>{
 				this.isConnect=true;
+				loading.close();
 				//加入房间
 				this.socket.emit('joinRoom',this.joinRoom);
 				//监听进入房间人员
