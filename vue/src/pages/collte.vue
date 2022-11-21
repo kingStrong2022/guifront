@@ -142,7 +142,7 @@ export default {
 			this.dialogVisible = b;
 		},
 		handleEdit(row){
-			this.cur = row;
+			this.cur = JSON.parse(JSON.stringify(row));
 			this.dialogVisible = true;
 		},
 		handleCurrentChange(p){

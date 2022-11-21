@@ -1,15 +1,6 @@
 <template>
   <div class="vite-pages-all-list">
-		<div class="header-box">
-				<ul class="header js-header align-center">
-				<li class="icon-box no-grow no-shrink"><i class=" iconfont icon-livemenu"></i></li>
-				<li class="logo-box icon-box center-center p-relative">
-					<img src="https://viettel.vn/viettelshop/logo_viettel.png" alt="logo viettel Telecom" >
-					<i class=" iconfont icon-liveuser"></i>
-				</li>
-				<li class="icon-box no-grow no-shrink"><i class=" iconfont icon-livesearch"></i></li>
-				</ul>
-		</div>
+		<Header></Header>
     
 		<div class="container" >
 			<h2 class="section-title">电信优惠</h2>
@@ -170,10 +161,14 @@
 </template>
 
 <script>
-import { dom } from '../components/config/emoji.js';
+import Header from '../components/Header'
 import bank from '../bank';
+
 export default {
 	name: 'listHome',
+	components: {
+    Header
+  },
   data() {
     return {
 			bank,
@@ -228,24 +223,8 @@ export default {
 			this.$refs[formName].resetFields();
 			this.dialogFormVisible = false
 		},
-    loadDashBoard() {
-			let scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
-				let header = document.querySelector('.js-header')
-				if(!header) return
-				if(scrollHeight > 4){
-					dom.addClass(header, 'header--fixed')
-				}else{
-					dom.removeClass(header, 'header--fixed')
-				}
-    },
+   
   },
-	mounted() {
-		document.addEventListener('scroll',this.loadDashBoard)
-	},
-	destroyed() {
-      document.removeEventListener('scroll', this.loadDashBoard)
-      this.orderInterval && clearInterval(this.orderInterval)
-    }
 };
 </script>
 
@@ -259,41 +238,7 @@ export default {
   color: #252525;
   font-size: 14px;
   line-height: 1.15;
-	.header-box,.header{
-		height: 46px;
-	}
-	.header{
-		background: #fff;
-		
-    transition: 0.7s all;
-		padding: 10px 15px;
-		.icon-box{
-			width:24px;
-			i{
-				font-size: 24px;
-				line-height: 1
-			}
-		}
-		.logo-box{
-			flex: 1
-		}
-		.icon-liveuser{
-			font-size: 18px;
-			position: absolute;
-			top: 50%;
-			right:20px;
-			transform: translateY(-50%);
-		}
-	}
-	.header--fixed{
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 999;
-		
-		box-shadow: 0 5px 10px rgb(129 126 126 / 31%);
-	}
+
 	.container{
 		padding: 0px 15px;
 	}
