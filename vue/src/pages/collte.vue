@@ -46,6 +46,18 @@
         prop="rankNum"
         label="银行卡号">
       </el-table-column>
+			<el-table-column
+        prop="desc"
+        label="备注">
+      </el-table-column>
+			<el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+					type="text"
+          @click="handleEdit(scope.row)">备注</el-button>
+      </template>
+    </el-table-column>
     </el-table>
 		<el-pagination
 		background
@@ -54,6 +66,17 @@
 		:page-size="limit"
 		:total="(result.totalDocs-1)">
 	</el-pagination>
+	<el-dialog
+  title="添加备注"
+  :visible.sync="dialogVisible"
+  width="30%"
+  >
+  <el-input type="textarea" v-model.trim="cur.desc"></el-input>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="closeDialog(false)">取 消</el-button>
+    <el-button type="primary" @click="sumitEdt">确 定</el-button>
+  </span>
+</el-dialog>
 	</div>
 </template>
 
@@ -63,6 +86,8 @@ export default {
 	name: 'collteHome',
 		data() {
 			return {
+				dialogVisible: false,
+				cur:{desc:''},
 				bank,
 				formInline: {
           phone: '',
@@ -92,6 +117,34 @@ export default {
 		},
 	}	,
   methods: {
+		// openDialog(row) {
+			
+		// },
+		async sumitEdt(){
+			this.closeDialog(false)
+			if(!this.cur.desc){
+				return
+			}
+			const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+			await this.$http.post(`/article/edtDesc`,{
+				_id:this.cur._id,
+				desc:this.cur.desc
+			})
+			await this.loadDashBoard();
+			loading.close()
+		},
+		closeDialog(b){
+			this.dialogVisible = b;
+		},
+		handleEdit(row){
+			this.cur = row;
+			this.dialogVisible = true;
+		},
 		handleCurrentChange(p){
 			this.page = p;
 			let data = {
@@ -151,7 +204,6 @@ export default {
 			return this.bank[indx][key]
 		},
     async loadDashBoard(cont) {
-			console.log(cont)
 			if(!cont){
 				cont={
 					params:{
@@ -160,7 +212,6 @@ export default {
 					}
 				}
 			}
-			console.log(cont)
 			this.result= await this.$http.get(`/article/msg`,cont)
 			let data= this.result.docs.filter(v => v.url)
 			if(data.length>0){
