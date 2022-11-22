@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { dom } from '../components/config/emoji.js';
 import bank from '../bank';
 import Header from '../components/Header'
 import Footer from '../components/footer'
@@ -121,12 +122,20 @@ export default {
 		},
    
   },
+	mounted() {
+		this.$body = document.querySelector('body')
+		dom.addClass(this.$body, 'bg-gray')
+	},
+	destroyed() {
+		dom.removeClass(this.$body, 'bg-gray')
+    }
 };
 </script>
 <style lang="scss">
 @import '../assets/styles/variables.scss';
 .users-form15{
 		padding: 0 15px;
+		background: #fff;
 	}
 .users-form-page {
 	.dialog-appkp{
