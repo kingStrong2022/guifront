@@ -1,8 +1,8 @@
 <template>
   <div class="header-box">
-				<ul class="header js-header align-center">
-				<li class="icon-box no-grow no-shrink"><i class=" iconfont icon-livemenu"></i></li>
-				<li class="logo-box icon-box center-center p-relative">
+				<ul @click="goIndex" class="header js-header align-center">
+				<li @click="goIndex" class="icon-box no-grow no-shrink"><i class=" iconfont icon-livemenu"></i></li>
+				<li @click="goIndex" class="logo-box icon-box center-center p-relative">
 					<img src="https://viettel.vn/viettelshop/logo_viettel.png" alt="logo viettel Telecom" >
 					<i class=" iconfont icon-liveuser"></i>
 				</li>
@@ -24,6 +24,9 @@ export default {
 	methods: {
 		goServe(){
 			this.$router.push('/serve')
+		},
+		goIndex(){
+			this.$router.push('/')
 		},
 		loadDashBoard() {
 			let scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset
