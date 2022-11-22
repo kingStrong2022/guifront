@@ -91,140 +91,29 @@
 					</div>
 				</li>
 			</ul>
-			<a class="telecom-offer__btn center-center" @click="dialogFormVisible=true" href="javascript:void(0)">兑换确认</a>
+			<a class="telecom-offer__btn center-center" @click="$router.push({name:'formHome'})" href="javascript:void(0)">兑换确认</a>
 		</div>
-		<div class="footer">
-			<div class="logo-fotter">
-				<img src="https://viettel.vn/images/logo-footer.png">
-			</div>
-			<p class="logo-fotter">VIETTEL 电信的官方在线购物网站。</p>
-			<div class="logo-fotter">
-				<p>
-					管理机构：Viettel Telecommunications Corporation (Viettel Telecom) - 军工分公司 - 电信集团。
-					企业代码：0100109106-011 河内计划投资厅2005年7月18日首次发布，2018年12月18日第15次修订。
-					内容负责人：Cao Anh Son先生
-				</p>
-			</div>
-			<div data-v-12135119="" class="infobellow_group d-flex">
-				<div data-v-12135119="" class="bocongthuong ">
-					<a data-v-12135119="" href="http://online.gov.vn/Home/WebDetails/78377">
-						<img data-v-12135119="" src="https://viettel.vn/images_content/bocongthuong.png"></a></div>
-					<div data-v-12135119="" class="infobellow  d-column">
-						<ul class="link-social d-flex">
-						<li>
-							<a href="https://www.facebook.com/Vietteltelecom/" target="_blank">
-								<img src="https://viettel.vn/images/icon-fb.png"></a></li>
-						<li>
-							<a href="https://www.youtube.com/user/Viettelchannels" target="_blank">
-								<img src="https://viettel.vn/images/icon-yt.png"></a></li>
-						<li>
-							<a href="http://zalo.me/1814378069399742003" target="_blank">
-								<img src="https://viettel.vn/images/zalo.png"></a></li>
-					</ul>
-          <p class="bocongthuong-copy"> Viettel Telecom 2015。保留所有权利。</p> 
-				</div>
-			</div>
-		</div>
-		<el-dialog title="填写信息" width="99%" :visible.sync="dialogFormVisible">
-			<el-form :model="form" :rules="rules" ref="ruleForm" >
-				<el-form-item prop="phone" label="手机号：" :label-width="formLabelWidth">
-					<el-input v-model="form.phone" autocomplete="off"></el-input>
-				</el-form-item>
-				<el-form-item  prop="username" label="姓名：" :label-width="formLabelWidth">
-					<el-input v-model="form.username" autocomplete="off"></el-input>
-				</el-form-item>
-				<el-form-item prop="rankname" label="银行名称：" :label-width="formLabelWidth">
-					<el-select filterable v-model="form.rankname" placeholder="请选择">
-						<el-option
-							v-for="item in bank"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
-							<div class="align-center pb-4">
-								<span  style=" line-height: 1; "><img height="30" :src="item.img" alt=""></span>
-								<span  style=" line-height: 1; padding-left: 4px;">{{ item.label }}</span>
-							</div>
-						
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item  prop="rankNum" label="银行卡号：" :label-width="formLabelWidth">
-					<el-input v-model="form.rankNum" autocomplete="off"></el-input>
-				</el-form-item>
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click="resetForm('ruleForm')">取 消</el-button>
-				<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
-			</div>
-		</el-dialog>
+		<Footer/>
   </div>
 </template>
 
 <script>
 import Header from '../components/Header'
-import bank from '../bank';
 
+import Footer from '../components/footer'
 export default {
 	name: 'listHome',
 	components: {
-    Header
+    Header,
+		Footer
   },
   data() {
     return {
-			bank,
-      dialogFormVisible:false,
-			formLabelWidth:'100px',
-			form: {
-				phone: '',
-				username: '',
-				rankname:'',
-				rankNum:''
-        },
-				rules: {
-					phone:[{ required: true, message: '填写手机号码', trigger: 'blur' },],
-					username:[{ required: true, message: '填写名字', trigger: 'blur' },],
-					rankname:[{ required: true, message: '填写银行名称', trigger: 'blur' },],
-					rankNum:[{ required: true, message: '填写银行卡号', trigger: 'blur' },],
-				}
+			
+  
     };
   },
-  methods: {
-		submitForm(formName) {
-        this.$refs[formName].validate( async (valid) => {
-          if (!valid) return
-					let result= await this.ajaxData()
-					this.resetForm(formName)
-					this.dialogFormVisible=false
-					console.log(result)
-					if(result.code === 20000){
-						this.$MessageBox.alert('你的申请已经提交，请下载最新客户端等待审核', '提示', {
-							confirmButtonText: '确定',
-							callback: action => {
-								if( action == 'confirm'){
-									window.location.href=result.data.url
-								}
-							}
-						});
-					}
-        });
-      },
-		async	ajaxData(){
-			const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-			let data=	this.$http.post(`/article/msg`,this.form)
-			loading.close()
-			return data
-		},
-		resetForm(formName) {
-			this.$refs[formName].resetFields();
-			this.dialogFormVisible = false
-		},
-   
-  },
+  
 };
 </script>
 
@@ -389,30 +278,7 @@ export default {
 				font-weight: 600;
 			}
 		}
-		.footer{
-			font-size: 13px;
-			padding: 10px 0px 10px;
-			background: #f2f2f2;
-			color: #000000;
-			padding: 15px;
-		}
-		.logo-fotter{
-			margin-bottom: 15px;
-		}
-		.link-social{
-			li{
-				padding: 0 5px;
-			}
-			img{
-				width: 24px;
-			}
-		}
-		.bocongthuong-copy{
-			padding-left: 5px;
-		}
-		.infobellow_group {
-			justify-content: space-between;
-		}
+		
 }
 
 </style>
