@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="collter-page">
 		<el-form style="margin-top:36px" :model="form" :rules="rules" ref="ruleForm" >
 				<el-form-item prop="url" label="配置url：" :label-width="formLabelWidth">
 					<el-input v-model="form.url" autocomplete="off"></el-input>
 				</el-form-item>
 				<el-form-item :label-width="formLabelWidth">
-					<el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+					<el-button type="success" @click="submitForm('ruleForm')">确 定</el-button>
 				</el-form-item>
 			</el-form>
 			<el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -16,7 +16,13 @@
 				<el-input v-model="formInline.phone" placeholder="手机"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" @click="onSubmit">查询</el-button>
+				<el-button type="success" @click="onSubmit">查询</el-button>
+			</el-form-item>
+			<el-form-item>
+				<el-button @click="clear">重置</el-button>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="danger" @click="delAll" icon="el-icon-delete">删除所有数据</el-button>
 			</el-form-item>
 		</el-form>
     <el-table
@@ -60,6 +66,7 @@
     </el-table-column>
     </el-table>
 		<el-pagination
+		class="center-center"
 		background
 		layout="prev, pager, next"
 		@current-change="handleCurrentChange"
@@ -203,6 +210,24 @@ export default {
 			console.log(key,this.bank[indx])
 			return this.bank[indx][key]
 		},
+		clear(){
+			this.formInline = {
+				phone: '',
+				username: ''
+			}
+			this.loadDashBoard()
+		},
+		async	delAll(){
+			const loading = this.$loading({
+				lock: true,
+				text: 'Loading',
+				spinner: 'el-icon-loading',
+				background: 'rgba(0, 0, 0, 0.7)'
+			});
+			await this.$http.post(`/article/delMsg`)
+			await this.loadDashBoard()
+		loading.close()
+		},
     async loadDashBoard(cont) {
 			if(!cont){
 				cont={
@@ -226,4 +251,7 @@ export default {
 </script>
 
 <style>
+.collter-page{
+	padding: 0 20px;
+}
 </style>

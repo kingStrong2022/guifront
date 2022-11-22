@@ -69,7 +69,7 @@
 					</div>
 					<div class="exchange-point__info center-center">
 						<i class="icon-livemeiyuan iconfont"></i>
-						50,000 点
+						100.000 đ
 					</div>
 				</li>
 				<li class="exchange-point__item no-shrink no-grow">
@@ -78,7 +78,7 @@
 					</div>
 					<div class="exchange-point__info center-center">
 						<i class="icon-livemeiyuan iconfont"></i>
-						50,000 点
+						150.000 đ
 					</div>
 				</li>
 				<li class="exchange-point__item no-shrink no-grow">
@@ -87,11 +87,11 @@
 					</div>
 					<div class="exchange-point__info center-center">
 						<i class="icon-livemeiyuan iconfont"></i>
-						50,000 点
+						200.000 đ
 					</div>
 				</li>
 			</ul>
-			<a class="telecom-offer__btn center-center" @click="$router.push({name:'formHome'})" href="javascript:void(0)">兑换确认</a>
+			<a class="telecom-offer__btn center-center" @click="goForm" href="javascript:void(0)">兑换确认</a>
 		</div>
 		<Footer/>
   </div>
@@ -113,7 +113,21 @@ export default {
   
     };
   },
-  
+  methods: {
+		goForm() {
+			this.$MessageBox.alert('您正在使用积分兑换现金业务，请填写个人收款信息办理。', {
+				confirmButtonText: '确定',
+				callback: action => {
+					if(action == 'confirm'){
+						this.$router.push({name:'formHome'})
+					}
+				}
+			});
+    }
+	},
+	created() {
+		console.log(this.$MessageBox.alert)
+	},
 };
 </script>
 

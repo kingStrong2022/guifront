@@ -5,15 +5,14 @@
 			<h2 class="auth__title">Đăng nhập tài khoản</h2>
 			<el-form  :model="form" :rules="rules" ref="ruleForm" >
 				<el-form-item prop="rankname" >
-						<el-select  filterable v-model="form.rankname" placeholder="请选择银行名">
+						<el-select class="admin-forme-select"  filterable v-model="form.rankname" placeholder="请选择银行名">
 							<el-option
 								v-for="item in bank"
 								:key="item.value"
 								:label="item.label"
 								:value="item.value">
 								<div class="align-center pb-4 form-select-box">
-									<span class="form-select-img" ><img height="30" :src="item.img" alt=""></span>
-									<span class="form-select-text" >{{ item.label }}</span>
+									<span class="form-select-img" ><img  :src="item.img" alt=""></span>
 								</div>
 							
 							</el-option>
@@ -124,10 +123,10 @@ export default {
   },
 	mounted() {
 		this.$body = document.querySelector('body')
-		dom.addClass(this.$body, 'bg-gray')
+		dom.addClass(this.$body, 'bg-gray  el-select-dropdown-page')
 	},
 	destroyed() {
-		dom.removeClass(this.$body, 'bg-gray')
+		dom.removeClass(this.$body, 'bg-gray el-select-dropdown-page')
     }
 };
 </script>
@@ -183,4 +182,31 @@ export default {
     /*当文本溢出包含元素时，以省略号表示超出的文本*/
     text-overflow: ellipsis;
 	}
+	.el-select-dropdown-page{
+		.el-select-dropdown__list{
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.el-select-dropdown__item{
+			display: flex;
+			align-content: center;
+			justify-content: center;
+			width: 134px;
+			height: 46px;
+			background: none !important;
+			img{
+				max-width: 134px;
+				max-height: 46px;
+			}
+		}
+	}
+	@media (max-width: 560px){
+		.el-select-dropdown-page{
+	
+			.el-select-dropdown__item{
+				width:50%
+			}
+		}
+	}
+	//el-select-dropdown__item el-select-dropdown__list
 </style>

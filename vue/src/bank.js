@@ -75,11 +75,6 @@ const bank=[
 		value:19, label:'Ngân hàng thương mại cổ phần Sài gòn – Hà Nội',
 		img:'https://www.mobifone.vn/assets/source/image/banks/bank_13.jpg'
 	},	
-                {
-		value:20, label:'CHOHUNG VINA BANK',
-		img:'https://www.mobifone.vn/assets/source/image/banks/bank_16.jpg'
-
-	},
 	{
 		value:21, label:'Ngân hàng thương mại cổ phần Việt á',
 		img:'https://www.mobifone.vn/assets/source/image/banks/bank_19.jpg'
