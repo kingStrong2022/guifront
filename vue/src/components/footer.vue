@@ -3,12 +3,10 @@
 			<div class="logo-fotter">
 				<img src="https://viettel.vn/images/logo-footer.png">
 			</div>
-			<p class="logo-fotter">VIETTEL 电信的官方在线购物网站。</p>
+			<p class="logo-fotter">WEBSITE MUA SẮM ONLINE CHÍNH THỨC CỦA VIETTEL TELECOM.</p>
 			<div class="logo-fotter">
 				<p>
-					管理机构：Viettel Telecommunications Corporation (Viettel Telecom) - 军工分公司 - 电信集团。
-					企业代码：0100109106-011 河内计划投资厅2005年7月18日首次发布，2018年12月18日第15次修订。
-					内容负责人：Cao Anh Son先生
+					Cơ quan chủ quản: Tổng Công ty Viễn thông Viettel (Viettel Telecom) - Chi nhánh Tập đoàn Công nghiệp - Viễn thông Quân đội. Mã số doanh nghiệp: 0100109106-011 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp lần đầu ngày 18/07/2005, sửa đổi lần thứ 15 ngày 18/12/2018. Chịu trách nhiệm nội dung: Ông Cao Anh Sơn
 				</p>
 			</div>
 			<div data-v-12135119="" class="infobellow_group d-flex">
@@ -27,7 +25,8 @@
 							<a href="http://zalo.me/1814378069399742003" target="_blank">
 								<img src="https://viettel.vn/images/zalo.png"></a></li>
 					</ul>
-          <p class="bocongthuong-copy"> Viettel Telecom 2015。保留所有权利。</p> 
+          <p class="bocongthuong-copy">
+	© Viettel Telecom 2015. All rights reserved.</p> 
 				</div>
 			</div>
 		</div>

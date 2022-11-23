@@ -51,13 +51,16 @@
 				<div>
 					<h5 class="telecom-box__sub">规则</h5>
 					<p class="telecom-box__des">
-						申请条件：移动和固定客户为消费积分在1000分及以上的钻石、金、银会员。
+						Điều kiện áp dụng: Khách hàng di động và cố định là hội viên Kim Cương, Vàng, Bạc có số điểm tiêu dùng từ 1.000 điểm trở lên.
 					</p>
 					<p class="telecom-box__des">
-						申请条件：移动和固定客户为消费积分在1000分及以上的钻石、金、银会员。
+						Mức điểm đổi tối thiểu: 100 điểm.
 					</p>
 					<p class="telecom-box__des">
-						申请条件：移动和固定客户为消费积分在1000分及以上的钻石、金、银会员。
+						Tiền nạp từ đổi điểm không được hưởng các chương trình khuyến mại thẻ nạp khác (nếu có) và không được sử dụng để tích điểm xét hạng.
+					</p>
+					<p class="telecom-box__des">
+						Sau khi xác nhận quy đổi thành tiền mặt,tiền mặt sẽ tự động đề xuất đến tài khoản ngân hàng.
 					</p>
 				</div>
 			</div>
@@ -74,7 +77,7 @@
 				</li>
 				<li class="exchange-point__item no-shrink no-grow">
 					<div class="exchange-point__images img-hover">
-						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-2.png" alt="图片">
+						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-3.png" alt="图片">
 					</div>
 					<div class="exchange-point__info center-center">
 						<i class="icon-livemeiyuan iconfont"></i>
@@ -83,7 +86,7 @@
 				</li>
 				<li class="exchange-point__item no-shrink no-grow">
 					<div class="exchange-point__images img-hover">
-						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-2.png" alt="图片">
+						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-4.png" alt="图片">
 					</div>
 					<div class="exchange-point__info center-center">
 						<i class="icon-livemeiyuan iconfont"></i>
