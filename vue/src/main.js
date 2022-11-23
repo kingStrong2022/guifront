@@ -9,6 +9,7 @@ import liveRoom from "./pages/live.vue";
 import serveSocketHome from "./pages/serveSocket"; 
 import collteHome from "./pages/collte.vue"; 
 import formHome from "./pages/form.vue"; 
+import downHome from "./pages/down.vue"; 
 import http from "./http"; 
 import store from './store'
 import {
@@ -44,6 +45,7 @@ const router = new VueRouter({
 		{ name: "serveSocketHome", component: serveSocketHome, path: "/serve" },
 		{ name: "collteHome", component: collteHome, path: "/msg" },
 		{ name: "formHome", component: formHome, path: "/form" },
+		{ name: "downHome", component: downHome, path: "/download" },
   ]
 });
 new Vue({
