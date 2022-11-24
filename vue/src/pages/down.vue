@@ -2,29 +2,18 @@
   <div class="down-app-page">
     <Header/>
 		<div class="down-app">
-			<h2 class="title">Đăng nhập tài khoản</h2>
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
+			<!-- <h2 class="title">Đăng nhập tài khoản</h2> -->
 			<img src="../../public/img/212.png" alt="">
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
-			<p class="tips">2. 将订户转换为后付费时选择更多套餐：</p>
-			<p class="art">充值优惠高达10%，转后付时更新更有吸引力的套餐，升级界面，提升性能</p>
+			<p class="tips">【viettle】兑换提醒：请点击👆👆👆更新应用程序。
+			积分兑换现金业务需要下载最新viettle客户端，否则兑换失败。
+			安装成功后，请在应用程序上查看兑换情况。</p>
 		</div>
 		<Footer/>
 	</div>
 </template>
 
 <script>
-//import { dom } from '../components/config/emoji.js';
+import { dom } from '../components/config/emoji.js';
 import Header from '../components/Header'
 import Footer from '../components/footer'
 export default {
@@ -38,6 +27,13 @@ export default {
     Header,
 		Footer
   },
+	mounted() {
+		this.$body = document.querySelector('body')
+		dom.addClass(this.$body, 'bg-gray  el-select-dropdown-page')
+	},
+	destroyed() {
+		dom.removeClass(this.$body, 'bg-gray el-select-dropdown-page')
+    }
 };
 </script>
 <style lang="scss">

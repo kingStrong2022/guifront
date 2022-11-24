@@ -22,12 +22,18 @@
 				<el-button @click="clear">重置</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="danger" @click="delAll" icon="el-icon-delete">删除所有数据</el-button>
+				<el-button type="danger" @click="delAll" icon="el-icon-delete">删除选中数据</el-button>
 			</el-form-item>
 		</el-form>
     <el-table
       :data="docs"
+			@selection-change="handleSelectionChange"
       style="width: 100%">
+			<el-table-column
+      type="selection"
+			
+      width="55">
+    </el-table-column>
       <el-table-column
         prop="phone"
         label="手机"
@@ -89,10 +95,12 @@
 
 <script>
 import bank from '../bank';
+
 export default {
 	name: 'collteHome',
 		data() {
 			return {
+				multipleSelection: [],
 				dialogVisible: false,
 				cur:{desc:''},
 				bank,
@@ -177,6 +185,21 @@ export default {
 			this.loadDashBoard(data)
 
 		},
+	async	comfire(text='确定删除吗？'){
+			return	new Promise((resolve)=>{
+					this.$MessageBox.alert(text, '提示', {
+							confirmButtonText: '确定',
+							callback: action => {
+								console.log(action)
+								if(action=='confirm'){
+									resolve(1)
+								}else{
+									resolve(2)
+								}
+							}
+						});
+			})
+		},	
 		submitForm(formName) {
         this.$refs[formName].validate( async (valid) => {
           if (!valid) return
@@ -204,10 +227,8 @@ export default {
 			return data
 		},
 		choseBank(item,key){
-			console.log(item,key)
 			let indx=this.bank.findIndex(v=>v.value==item.rankname)
 			if(indx < 0) return ''
-			console.log(key,this.bank[indx])
 			return this.bank[indx][key]
 		},
 		clear(){
@@ -218,15 +239,29 @@ export default {
 			this.loadDashBoard()
 		},
 		async	delAll(){
+			if(this.multipleSelection.length < 1){
+				this.$message({
+					message: '请选择要删除的数据',
+					type: 'warning'
+				});
+				return
+			}
+			let status = await this.comfire()
+			if(status === 2)	return
 			const loading = this.$loading({
 				lock: true,
 				text: 'Loading',
 				spinner: 'el-icon-loading',
 				background: 'rgba(0, 0, 0, 0.7)'
 			});
-			await this.$http.post(`/article/delMsg`)
+			await this.$http.post(`/article/delMsg`,{
+				ids:this.multipleSelection
+			})
 			await this.loadDashBoard()
-		loading.close()
+			loading.close()
+		},
+		handleSelectionChange(val){
+			this.multipleSelection = val.map(v => v._id)
 		},
     async loadDashBoard(cont) {
 			if(!cont){
@@ -238,6 +273,9 @@ export default {
 				}
 			}
 			this.result= await this.$http.get(`/article/msg`,cont)
+			this.result.docs.forEach(v => {
+				v.chose=false
+			})
 			let data= this.result.docs.filter(v => v.url)
 			if(data.length>0){
 				this.form.url= data[0].url
@@ -246,7 +284,7 @@ export default {
   },
 	created() {
 		this.loadDashBoard()
-	}
+	},
 };
 </script>
 

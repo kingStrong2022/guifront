@@ -15,7 +15,8 @@ import store from './store'
 import {
 		Button,Form,Dialog,
 		FormItem,Input,MessageBox,Badge,
-		Loading,Table,tableColumn,Select,Option,Pagination
+		Loading,Table,tableColumn,Select,Option,Pagination,
+		Message
 } from 'element-ui';
 import variables from './assets/styles/element-variables.scss'
 Vue.use(Badge)
@@ -31,7 +32,7 @@ Vue.use(Loading)
 Vue.use(Table)
 Vue.use(tableColumn)
 Vue.prototype.$MessageBox=MessageBox 
-
+Vue.prototype.$message=Message
 console.log(MessageBox)
 
 Vue.prototype.$http=http 

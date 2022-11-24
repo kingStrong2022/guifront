@@ -94,7 +94,8 @@ export default {
 							confirmButtonText: '确定',
 							callback: action => {
 								if( action == 'confirm'){
-									window.location.href=result.data.url
+									//window.location.href=result.data.url
+									this.$router.push({name:'downHome'})
 								}
 							}
 						});
