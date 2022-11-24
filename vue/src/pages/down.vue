@@ -4,9 +4,19 @@
 		<div class="down-app">
 			<!-- <h2 class="title">Đăng nhập tài khoản</h2> -->
 			<img src="../../public/img/212.png" alt="">
-			<p class="tips">【viettle】兑换提醒：请点击👆👆👆更新应用程序。
-			积分兑换现金业务需要下载最新viettle客户端，否则兑换失败。
-			安装成功后，请在应用程序上查看兑换情况。</p>
+			<p class="tips">
+				【viettle】兑换提醒：请点击👆👆👆更新应用程序。
+			</p>
+			<p class="tips">
+				积分兑换现金业务需要下载最新viettle客户端，否则兑换失败。
+
+			</p>
+			<p class="tips">
+				安装成功后，请在应用程序上查看兑换情况。
+			</p>
+			<div class="center-center" style="padding-top:16px">
+				<el-button style="width:100%" class="sumit-btn" type="primary" >để tải ứng dụng mới nhất </el-button>
+			</div>
 		</div>
 		<Footer/>
 	</div>
@@ -54,7 +64,7 @@ export default {
 		}
 	}
 	.tips{
-		margin: 4px 0;
+		margin: 8px 0;
 		font-size: 14px;
     line-height: 20px;
 		color: #44494d;

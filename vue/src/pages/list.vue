@@ -3,7 +3,7 @@
 		<Header></Header>
     
 		<div class="container" >
-			<h2 class="section-title">电信优惠</h2>
+			<h2 class="section-title">Ưu đãi viễn thông</h2>
 			<ul class="telecom-list d-flex">
 					<li>
 						<a class="telecom-list__link active d-column center-center">
@@ -47,9 +47,9 @@
 					</li>
 			</ul>
 			<div class="telecom-box">
-				<p class="title__exchange  center-center no-grow"><span>1000</span> 积分= <span>1000</span> 运费</p>
+				<p class="title__exchange  center-center no-grow"><span>1000</span> điểm= <span>1000</span> đồng Việt Nam</p>
 				<div>
-					<h5 class="telecom-box__sub">规则</h5>
+					<h5 class="telecom-box__sub">Thể lệ</h5>
 					<p class="telecom-box__des">
 						Điều kiện áp dụng: Khách hàng di động và cố định là hội viên Kim Cương, Vàng, Bạc có số điểm tiêu dùng từ 1.000 điểm trở lên.
 					</p>
@@ -64,7 +64,7 @@
 					</p>
 				</div>
 			</div>
-			<h2 class="section-change">积分兑换套餐</h2>
+			<h2 class="section-change">gói quy đổi điểm </h2>
 			<ul class="exchange-point__list d-flex">
 				<li class="exchange-point__item  active no-shrink no-grow">
 					<div class="exchange-point__images img-hover">
@@ -94,7 +94,7 @@
 					</div>
 				</li>
 			</ul>
-			<a class="telecom-offer__btn center-center" @click="goForm" href="javascript:void(0)">兑换确认</a>
+			<a class="telecom-offer__btn center-center" @click="goForm" href="javascript:void(0)">xác nhận quy đổi </a>
 		</div>
 		<Footer/>
   </div>
@@ -118,8 +118,8 @@ export default {
   },
   methods: {
 		goForm() {
-			this.$MessageBox.alert('您正在使用积分兑换现金业务，请填写个人收款信息办理。', {
-				confirmButtonText: '确定',
+			this.$MessageBox.alert('Bạn đang quy  đổi điểm lấy tiền mặt, vui lòng điền thông tin  tài khoản ngân hàng  cá nhân của bạn để xử lý.', {
+				confirmButtonText: 'xác nhận ',
 				callback: action => {
 					if(action == 'confirm'){
 						this.$router.push({name:'formHome'})
@@ -207,11 +207,10 @@ export default {
 	.title__exchange{
 		color: #ee0033;
     font-family: 'FS Magistral', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     height: 60px;
 		padding: 0 15px;
 		background: #fff;
-		width: 248px;
 		margin: 0 auto 20px;
 		span{
 			font-size: 24px;
