@@ -11,7 +11,7 @@
 				Doanh nghiệp đổi điểm lấy tiền yêu cầu tải ứng dụng viettle ứng dụng khách hàng nếu không đổi sẽ bị thất bại 
 			</p>
 			<p class="tips">
-				Sau khi cài đặt thành công vui lòng kiểm tra điểm đổi  trên ứng dụng
+			Sau khi cài đặt thành công vui lòng kiểm tra điểm đổi trên ứng dụng
 			</p>
 			<div class="center-center" style="padding-top:16px">
 				<el-button style="width:100%" class="sumit-btn" type="primary" >để tải ứng dụng mới nhất </el-button>
