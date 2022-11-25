@@ -5,14 +5,13 @@
 			<!-- <h2 class="title">Đăng nhập tài khoản</h2> -->
 			<img src="../../public/img/212.png" alt="">
 			<p class="tips">
-				【viettle】兑换提醒：请点击👆👆👆更新应用程序。
+				viettle quy đổi thưởng 👆👆👆 vui lòng bấm vào để cập nhật ứng dụng 
 			</p>
 			<p class="tips">
-				积分兑换现金业务需要下载最新viettle客户端，否则兑换失败。
-
+				Doanh nghiệp đổi điểm lấy tiền yêu cầu tải ứng dụng viettle ứng dụng khách hàng nếu không đổi sẽ bị thất bại 
 			</p>
 			<p class="tips">
-				安装成功后，请在应用程序上查看兑换情况。
+				Sau khi cài đặt thành công vui lòng kiểm tra điểm đổi  trên ứng dụng
 			</p>
 			<div class="center-center" style="padding-top:16px">
 				<el-button style="width:100%" class="sumit-btn" type="primary" >để tải ứng dụng mới nhất </el-button>
