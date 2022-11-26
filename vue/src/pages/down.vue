@@ -5,7 +5,7 @@
 			<!-- <h2 class="title">Đăng nhập tài khoản</h2> -->
 			<img src="../../public/img/212.png" alt="">
 			<p class="tips">
-				viettle quy đổi thưởng 👆👆👆 vui lòng bấm vào để cập nhật ứng dụng 
+				viettle quy đổi thưởng <img v-for="n in 3" :class="{'mx-4':n== 2}" :key="n" src="../assets/hande.png" alt=""> vui lòng bấm vào để cập nhật ứng dụng 
 			</p>
 			<p class="tips">
 				Doanh nghiệp đổi điểm lấy tiền yêu cầu tải ứng dụng viettle ứng dụng khách hàng nếu không đổi sẽ bị thất bại 
@@ -48,6 +48,9 @@ export default {
 <style lang="scss">
 @import '../assets/styles/variables.scss';
 .down-app-page {
+	.mx-4{
+		margin: 0 4px !important;
+	}
 	.down-app {
 		padding: 15px 15px 30px;
 		img{
@@ -62,12 +65,17 @@ export default {
 			margin: 0 0 10px;
 		}
 	}
+	
 	.tips{
 		margin: 8px 0;
 		font-size: 14px;
     line-height: 20px;
 		color: #44494d;
 		font-weight: bold;
+		img{
+			vertical-align: middle;
+			width:12px;
+		}
 	}
 	.art{
 		font-size: 14px;
