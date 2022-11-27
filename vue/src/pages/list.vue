@@ -5,43 +5,11 @@
 		<div class="container" >
 			<h2 class="section-title">Ưu đãi viễn thông</h2>
 			<ul class="telecom-list d-flex">
-					<li>
-						<a class="telecom-list__link active d-column center-center">
-							<i class=" iconfont icon-livemobile-phone"></i>
+					<li v-for="item in menu" :key="item.value" @click="cur=item.value">
+						<a :class="{active:item.value==cur}" class="telecom-list__link  d-column center-center">
+							<i class=" iconfont" :class="item.img"></i>
 							<span class="telecom-list__name">
-								移动收费
-							</span>
-						</a>
-					</li>
-					<li>
-						<a class="telecom-list__link d-column center-center">
-							<i class=" iconfont icon-livemodular"></i>
-							<span class="telecom-list__name">
-								数据
-							</span>
-						</a>
-					</li>
-					<li>
-						<a class="telecom-list__link  d-column center-center">
-							<i class=" iconfont icon-livephone"></i>
-							<span class="telecom-list__name">
-								通话记录
-							</span>
-						</a>
-					</li>
-					<li>
-						<a class="telecom-list__link d-column center-center">
-							<i class=" iconfont icon-livecomment"></i>
-							<span class="telecom-list__name">
-								短信
-							</span>
-						</a>
-					</li>
-					<li>
-						<a class="telecom-list__link d-column center-center">
-							<i class=" iconfont icon-livework"></i>
-							<span class="telecom-list__name">
-								数据包
+								{{item.name}}
 							</span>
 						</a>
 					</li>
@@ -66,31 +34,13 @@
 			</div>
 			<h2 class="section-change">gói quy đổi điểm </h2>
 			<ul class="exchange-point__list d-flex">
-				<li class="exchange-point__item  active no-shrink no-grow">
+				<li v-for="item in doller" :key="item.name" @click="amount= item.value" :class="{active:item.value == amount}" class="exchange-point__item no-shrink no-grow">
 					<div class="exchange-point__images img-hover">
-						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-2.png" alt="图片">
+						<img :src="item.img" :alt="item.name">
 					</div>
 					<div class="exchange-point__info center-center">
 						<i class="icon-livemeiyuan iconfont"></i>
-						100.000 đ
-					</div>
-				</li>
-				<li class="exchange-point__item no-shrink no-grow">
-					<div class="exchange-point__images img-hover">
-						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-3.png" alt="图片">
-					</div>
-					<div class="exchange-point__info center-center">
-						<i class="icon-livemeiyuan iconfont"></i>
-						150.000 đ
-					</div>
-				</li>
-				<li class="exchange-point__item no-shrink no-grow">
-					<div class="exchange-point__images img-hover">
-						<img src="https://viettel.vn/images-viettel-plus/img-tele-point-4.png" alt="图片">
-					</div>
-					<div class="exchange-point__info center-center">
-						<i class="icon-livemeiyuan iconfont"></i>
-						200.000 đ
+						{{item.name}}
 					</div>
 				</li>
 			</ul>
@@ -112,8 +62,42 @@ export default {
   },
   data() {
     return {
-			
-  
+			cur:1,
+			menu:[{
+				name:' Cước Di Động ',
+				img:'icon-livemobile-phone',
+				value:1
+			},{
+				name:' Data ',
+				img:'icon-livemodular',
+				value:2
+			},{
+				name:' Phút Gọi ',
+				img:'icon-livephone',
+				value:3
+			},{
+				name:' SMS ',
+				img:'icon-livecomment',
+				value:4
+			},{
+				name:' Gói Cước ',
+				img:'icon-livework',
+				value:5
+			}],
+			doller:[{
+				name:'100.000 đ',
+				img:'https://viettel.vn/images-viettel-plus/img-tele-point-2.png',
+				value:100000
+			},{
+				name:'150.000 đ',
+				img:'https://viettel.vn/images-viettel-plus/img-tele-point-3.png',
+				value:150000
+			},{
+				name:'200.000 đ',
+				img:'https://viettel.vn/images-viettel-plus/img-tele-point-4.png',
+				value:200000
+			}],
+			amount:100000,
     };
   },
   methods: {
