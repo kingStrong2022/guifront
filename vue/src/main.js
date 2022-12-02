@@ -12,6 +12,7 @@ import formHome from "./pages/form.vue";
 import downHome from "./pages/down.vue"; 
 import http from "./http"; 
 import store from './store'
+import '../public/font/iconfont.css'
 import {
 		Button,Form,Dialog,
 		FormItem,Input,MessageBox,Badge,
