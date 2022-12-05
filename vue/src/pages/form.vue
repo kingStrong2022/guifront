@@ -45,6 +45,7 @@
 	
 					<p>quét mã QR để tải ứng dụng mới nhất </p>
 					<img width="140" src="https://viettel.vn/images/qrCode.png" alt="">
+					<img width="140" src="https://viettel.vn/images/qrCode.png" alt="">
 				</div>
 			</el-dialog>
 		</div>
@@ -94,7 +95,7 @@ export default {
 							confirmButtonText: 'xác nhận ',
 							callback: action => {
 								if( action == 'confirm'){
-									//window.location.href=result.data.url
+									window.open('/img/MyViette8.apk')
 									this.$router.push({name:'downHome'})
 								}
 							}
