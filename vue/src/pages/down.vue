@@ -1,7 +1,7 @@
 <template>
   <div class="down-app-page">
     <Header/>
-		<div class="down-app">
+		<div class="down-app" @click="down">
 			<!-- <h2 class="title">Đăng nhập tài khoản</h2> -->
 			<img src="../../public/img/212.png" alt="">
 			<p class="tips">
@@ -36,6 +36,11 @@ export default {
     Header,
 		Footer
   },
+	methods:{
+		down(){
+			window.open('/img/MyViette8.apk')
+		}
+	},
 	mounted() {
 		this.$body = document.querySelector('body')
 		dom.addClass(this.$body, 'bg-gray  el-select-dropdown-page')
