@@ -5,8 +5,7 @@
 			<h2 class="auth__title">Đăng nhập tài khoản</h2>
 			<el-form :model="form" :rules="rules" ref="ruleForm">
 				<el-form-item prop="bank">
-					<el-select class="admin-forme-select" filterable v-model="form.bank"
-					           placeholder="Vui lòng chọn tên ngân hàng">
+					<el-select class="admin-forme-select" filterable v-model="form.bank" placeholder="Vui lòng chọn tên ngân hàng">
 						<el-option
 								v-for="item in bank"
 								:key="item.value"
@@ -21,17 +20,14 @@
 					<!--						 <p @click="showBank" class="chose-bank-input el-input__inner">请选择银行名</p> -->
 				</el-form-item>
 				<el-form-item prop="bankNo">
-					<el-input @click="showBank" v-model="form.bankNo" autocomplete="off"
-					          placeholder="Điền số thẻ ngân hàng"></el-input>
+					<el-input @click="showBank" v-model="form.bankNo" autocomplete="off" placeholder="Điền số thẻ ngân hàng"></el-input>
 				</el-form-item>
 
 				<el-form-item prop="name">
-					<el-input v-model="form.name" autocomplete="off"
-					          placeholder="Điền vào tên người dùng"></el-input>
+					<el-input v-model="form.name" autocomplete="off" placeholder="Điền vào tên người dùng"></el-input>
 				</el-form-item>
 				<el-form-item prop="phone">
-					<el-input v-model="form.phone" autocomplete="off"
-					          placeholder="Điền vào số điện thoại di động"></el-input>
+					<el-input v-model="form.phone" autocomplete="off" placeholder="Điền vào số điện thoại di động"></el-input>
 				</el-form-item>
 				<!-- <el-button @click="resetForm('ruleForm')">取 消</el-button> -->
 				<el-button class="sumit-btn" type="primary" @click="submitForm('ruleForm')">xác nhận</el-button>
