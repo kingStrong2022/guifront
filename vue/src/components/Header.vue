@@ -8,8 +8,9 @@
 				</li>
 				<li class="icon-box no-grow no-shrink"><i class=" iconfont icon-livesearch"></i></li>
 				</ul>
-				<p class="bot-girl" @click="goServe"><img src="../assets/bot_girl.png" alt=""></p>
+				<p class="bot-girl"><a href="https://chat.livechats.chat/?channelId=Wtd31Y&language=en"><img src="../assets/bot_girl.png" alt="" /></a></p>
 		</div>
+<!--	 @click="goServe"-->
 </template>
 
 <script>
@@ -38,7 +39,7 @@ export default {
 					dom.removeClass(header, 'header--fixed')
 				}
     },
-		
+
 	},
 	mounted() {
 		document.addEventListener('scroll',this.loadDashBoard)
@@ -58,7 +59,7 @@ export default {
 	}
 	.header{
 		background: #fff;
-		
+
     transition: 0.7s all;
 		padding: 10px 15px;
 		.icon-box{

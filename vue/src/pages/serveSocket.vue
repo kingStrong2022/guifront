@@ -1,45 +1,44 @@
 <template>
   <div class="serve-socket-page" :class="{'admin-menu':joinRoom.admin}">
     <Header/>
-	  <iframe class="kefu" src="https://chat.livechats.chat/?channelId=Wtd31Y&language=en"></iframe>
-<!--		<div v-if="isConnect">-->
-<!--			<ul class="online-user d-column" v-if="joinRoom.admin">-->
-<!--				<li class="center-center"-->
-<!--				:class="{'active':item.username === toUser.username}"-->
-<!--				v-for="(item, index) in otherUser"-->
-<!--				:key="index"-->
-<!--				@click="choseToUser(item)"-->
-<!--				>-->
-<!--				<el-badge -->
-<!--				:hidden="item.message.filter(v => !v.read).length == 0"-->
-<!--				:value="item.message.filter(v => !v.read).length" -->
-<!--				class="item">-->
-<!--					<i class="iconfont icon-liveuser"></i>-->
-<!--				</el-badge>-->
-<!--					-->
-<!--				</li>-->
-<!--			</ul>	-->
-<!--			<div class="msg-cont">-->
-<!--				<ul class="d-flex msg-list " -->
-<!--				v-for="(item, index) in curMsg"-->
-<!--				:key="index"-->
-<!--				:class="{'justify-end': isMe(item),'msg-admin':!isMe(item)}"-->
-<!--				>-->
-<!--					<li class="msg-img no-grow no-shrink" v-if="item.admin"><img src="../assets/bot_girl.png" alt=""></li>-->
-<!--					<li class="msg" v-html="item.text"></li>-->
-<!--				</ul>-->
-<!--			</div>-->
-<!--			<div >-->
-<!--				<ul class="chat-message align-center">-->
-<!--					<li class="text-input">-->
-<!--						<el-input placeholder="输入信息" @keyup.enter.native="submitForm" v-model="text" autocomplete="off"></el-input>-->
-<!--					</li>-->
-<!--					<li>-->
-<!--						<i @click="submitForm" class="iconfont icon-livezhifeiji"></i>-->
-<!--					</li>-->
-<!--				</ul>		-->
-<!--			</div>-->
-<!--		</div>-->
+		<div v-if="isConnect">
+			<ul class="online-user d-column" v-if="joinRoom.admin">
+				<li class="center-center"
+				:class="{'active':item.username === toUser.username}"
+				v-for="(item, index) in otherUser"
+				:key="index"
+				@click="choseToUser(item)"
+				>
+				<el-badge
+				:hidden="item.message.filter(v => !v.read).length == 0"
+				:value="item.message.filter(v => !v.read).length"
+				class="item">
+					<i class="iconfont icon-liveuser"></i>
+				</el-badge>
+
+				</li>
+			</ul>
+			<div class="msg-cont">
+				<ul class="d-flex msg-list "
+				v-for="(item, index) in curMsg"
+				:key="index"
+				:class="{'justify-end': isMe(item),'msg-admin':!isMe(item)}"
+				>
+					<li class="msg-img no-grow no-shrink" v-if="item.admin"><a href="https://chat.livechats.chat/?channelId=Wtd31Y&language=en"><img src="../assets/bot_girl.png" alt=""></a></li>
+					<li class="msg" v-html="item.text"></li>
+				</ul>
+			</div>
+			<div >
+				<ul class="chat-message align-center">
+					<li class="text-input">
+						<el-input placeholder="输入信息" @keyup.enter.native="submitForm" v-model="text" autocomplete="off"></el-input>
+					</li>
+					<li>
+						<i @click="submitForm" class="iconfont icon-livezhifeiji"></i>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -199,7 +198,7 @@ export default {
 		}
   },
 	mounted() {
-		// this.initSocket();
+		this.initSocket();
 	},
 	beforeDestroy(){
       if(this.socket){
